@@ -56,7 +56,7 @@ export default function Navbar() {
 
           {/* Profile */}
           <div className="w-9 h-9 rounded-full overflow-hidden border-2 border-teal-500">
-            <Image src="/user.png" alt="profile" width={36} height={36} />
+            <Image src="/user.jpg" alt="profile" width={36} height={36} />
           </div>
         </div>
       </div>
