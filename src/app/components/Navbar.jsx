@@ -1,53 +1,65 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
-const NavBar = () => {
-    return (
-        <nav className="sticky top-0 z-50 bg-white shadow">
-            <div className="container mx-auto px-6 py-3 flex items-center justify-between">
-                
-                {/* Logo */}
-                <Link href="/" className="text-2xl font-bold text-teal-600">
-                   LuxeStay
-                </Link>
+export default function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
 
-                {/* Menu */}
-                <div className="hidden md:flex items-center gap-6">
-                    <Link
-                        href="/"
-                        className="text-gray-700 hover:text-teal-600 font-medium"
-                    >
-                        Home
-                    </Link>
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 80);
+    };
 
-                    <Link
-                        href="/apartment"
-                        className="text-gray-700 hover:text-teal-600 font-medium"
-                    >
-                        Apartment
-                    </Link>
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-                    <Link
-                        href="/about"
-                        className="text-gray-700 hover:text-teal-600 font-medium"
-                    >
-                        About
-                    </Link>
+  return (
+    <nav
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300
+        ${scrolled
+          ? "bg-white shadow-md text-gray-900"
+          : "bg-transparent text-white"
+        }`}
+    >
+      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-2 font-bold text-xl">
+          <div className="p-2 rounded-lg bg-teal-500 text-white">
+            🏢
+          </div>
+          LuxeStay
+        </Link>
 
-                    <Link
-                        href="/contact"
-                        className="text-gray-700 hover:text-teal-600 font-medium"
-                    >
-                        Contact
-                    </Link>
-                </div>
+        {/* Menu */}
+        <div className="flex items-center gap-6">
+          <Link
+            href="/"
+            className={`hover:text-teal-500 ${
+              scrolled ? "text-gray-800" : "text-white"
+            }`}
+          >
+            Home
+          </Link>
 
-                {/* Mobile Icon (UI only) */}
-                <div className="md:hidden text-gray-700">
-                    ☰
-                </div>
-            </div>
-        </nav>
-    );
-};
+          <Link
+            href="/apartment"
+            className={`hover:text-teal-500 ${
+              scrolled ? "text-gray-800" : "text-white"
+            }`}
+          >
+            Apartment
+          </Link>
 
-export default NavBar;
+          {/* Profile */}
+          <div className="w-9 h-9 rounded-full overflow-hidden border-2 border-teal-500">
+            <Image src="/user.png" alt="profile" width={36} height={36} />
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
+}
