@@ -51,10 +51,10 @@ export default function HeroBanner() {
                   </p>
 
                   <div className="flex justify-center gap-4">
-                    <button className="btn bg-teal-500 hover:bg-teal-600 text-white px-6">
+                    <button className="btn bg-teal-500 rounded-md py-2 hover:bg-teal-600 text-white px-6">
                       Explore Apartments
                     </button>
-                    <button className="btn btn-outline text-white border-white">
+                    <button className="btn  rounded-lg border-teal-600 border-2 px-6 py-2 text-white">
                       Learn More
                     </button>
                   </div>
