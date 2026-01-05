@@ -81,7 +81,6 @@ const Footer = () => {
       <div className="border-t border-teal-600">
         <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col md:flex-row justify-between text-sm text-teal-100">
           <p>© 2025 LuxeStay. All rights reserved.</p>
-          <p>Powered by Readdy</p>
         </div>
       </div>
     </footer>
