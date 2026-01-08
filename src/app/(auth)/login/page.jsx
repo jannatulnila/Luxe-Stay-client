@@ -109,7 +109,7 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center ">
       <form
         onSubmit={handleLogin}
-        className="w-full max-w-md bg-white rounded-2xl  p-8"
+        className=" max-w-md bg-white rounded-2xl  p-8"
       >
         <h2 className="text-3xl font-bold text-center text-teal-500 mb-6">
           Welcome Back 
@@ -117,7 +117,7 @@ export default function LoginPage() {
 
         {/* Email */}
         <div className="mb-4">
-          <label className="block text-sm text-teal-500font-medium mb-1">Email</label>
+          <label className="block text-sm text-black font-medium mb-1">Email</label>
           <input
             name="email"
             type="email"
@@ -149,9 +149,9 @@ export default function LoginPage() {
 
         {/* Divider */}
         <div className="flex items-center my-5">
-          <hr className="flex-grow border-gray-300" />
+          <hr className=" border-gray-300" />
           <span className="mx-3 text-sm text-gray-400">OR</span>
-          <hr className="flex-grow border-gray-300" />
+          <hr className=" border-gray-300" />
         </div>
 
         {/* Google Login */}

@@ -16,9 +16,13 @@ export default function RegisterPage() {
     };
 
     const res = await fetch("/api/register", {
-      method: "POST",
-      body: JSON.stringify(data),
-    });
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify(data),
+});
+
 
     if (!res.ok) {
       const err = await res.json();
