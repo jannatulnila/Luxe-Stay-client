@@ -33,14 +33,17 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <form onSubmit={handleRegister} className="bg-white p-8 rounded-xl shadow w-96">
+    <div className=" flex gap-2 min-h-screen items-center justify-center">
+      <form onSubmit={handleRegister} className="bg-white p-8 rounded-xl shadow flex flex-row
+      w-96">
         <h2 className="text-2xl font-bold mb-6 text-center">Register</h2>
 
-        <input name="name" placeholder="Name" className="input" required />
-        <input name="email" placeholder="Email" className="input mt-3" required />
+       <div className="bg-white rounded-2xl shadow-2xl p-8 border border-gray-100 space-y-6">
+         <input name="name" placeholder="Name" className="input text-teal-500" required />
+        <input name="email" placeholder="Email" className="input mt-3 text-teal-500" required />
         <input name="photo" placeholder="Photo URL" className="input mt-3" />
-        <input name="password" type="password" placeholder="Password" className="input mt-3" required />
+        <input name="password" type="password" placeholder="Password" className="input mt-3 text-teal-500" required />
+       </div>
 
         <button className="btn bg-teal-500 w-full mt-4 text-white">Register</button>
 
