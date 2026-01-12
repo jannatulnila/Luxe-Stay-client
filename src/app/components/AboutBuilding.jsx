@@ -53,7 +53,7 @@ export default function AboutBuilding() {
 
           <p className="text-gray-600 text-lg leading-relaxed mb-8">
             With 24/7 security, smart access control, high-speed elevators, and
-            eco-friendly facilities, LuxeStay offers a peaceful and well-managed
+            eco-friendly facilities. LuxeStay offers a peaceful and well-managed
             environment that feels like home from the very first day.
           </p>
 
