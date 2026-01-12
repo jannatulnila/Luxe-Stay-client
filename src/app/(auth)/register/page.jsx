@@ -38,9 +38,12 @@ export default function RegisterPage() {
         <h2 className="text-2xl font-bold mb-6 text-center">Register</h2>
 
        <div className="bg-white rounded-2xl shadow-2xl p-8 border border-gray-100 space-y-6">
+        <label className="sr-only">Name</label>
          <input name="name" placeholder="Name" className="input text-teal-500" required />
+         <label className="sr-only">email</label>
         <input name="email" placeholder="Email" className="input mt-3 text-teal-500" required />
-        <input name="photo" placeholder="Photo URL" className="input mt-3" />
+        <label className="sr-only">photo</label>
+        <input name="photo" placeholder="Photo URL" className="input mt-3" /><label className="sr-only">password</label>
         <input name="password" type="password" placeholder="Password" className="input mt-3 text-teal-500" required />
        </div>
 
