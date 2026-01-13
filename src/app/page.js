@@ -1,10 +1,10 @@
 import Image from "next/image";
-import HeroBanner from "./components/HeroBanner";
-import AboutBuilding from "./components/AboutBuilding";
-import Location from "./components/Location";
-import FAQSection from "./components/FAQSection";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+import HeroBanner from "./components/Home/HeroBanner";
+import AboutBuilding from "./components/Home/AboutBuilding";
+import Location from "./components/Home/Location";
+import FAQSection from "./components/Home/FAQSection";
+import Navbar from "./components/shared/Navbar";
+import Footer from "./components/shared/Footer";
 
 export default function Home() {
   return (
