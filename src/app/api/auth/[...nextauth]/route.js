@@ -1,73 +1,5 @@
-// import NextAuth from "next-auth";
-// import GoogleProvider from "next-auth/providers/google";
-// import CredentialsProvider from "next-auth/providers/credentials";
-// import bcrypt from "bcrypt";
-// import clientPromise from "@/lib/mongodb";
-
-// export const authOptions = {
-//   session: {
-//     strategy: "jwt",
-//   },
-//   providers: [
-//     // ✅ Google Login
-//     GoogleProvider({
-//       clientId: process.env.GOOGLE_CLIENT_ID,
-//       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-//     }),
-
-//     // ✅ Email & Password Login
-//     CredentialsProvider({
-//       name: "Credentials",
-//       credentials: {
-//         email: {},
-//         password: {},
-//       },
-//       async authorize(credentials) {
-//         const client = await clientPromise;
-//         const users = client.db().collection("users");
-
-//         const user = await users.findOne({ email: credentials.email });
-//         if (!user) throw new Error("User not found");
-
-//         const isValid = await bcrypt.compare(
-//           credentials.password,
-//           user.password
-//         );
-
-//         if (!isValid) throw new Error("Invalid password");
-
-//         return {
-//           id: user._id,
-//           name: user.name,
-//           email: user.email,
-//           image: user.photo,
-//           role: user.role || "user",
-//         };
-//       },
-//     }),
-//   ],
-//   callbacks: {
-//     async jwt({ token, user }) {
-//       if (user) token.role = user.role;
-//       return token;
-//     },
-//     async session({ session, token }) {
-//       session.user.role = token.role;
-//       return session;
-//     },
-//   },
-//   pages: {
-//     signIn: "/login",
-//   },
-// };
-
-// const handler = NextAuth(authOptions);
-// export { handler as GET, handler as POST };
-
-
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import GoogleProvider from "next-auth/providers/google";
 import axios from "axios";
 
 const handler = NextAuth({
@@ -75,38 +7,51 @@ const handler = NextAuth({
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        email: {},
-        password: {}
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const res = await axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
-          credentials
-        );
-        if (res.data?.data) {
-          return res.data.data;
+        try {
+          const res = await axios.post(
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/users/login`,
+            credentials
+          );
+
+          if (res.data?.user) {
+            return res.data.user;
+          }
+          return null;
+        } catch (error) {
+          throw new Error("Invalid email or password");
         }
-        return null;
-      }
+      },
     }),
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET
-    })
   ],
+  session: {
+    strategy: "jwt",
+  },
   callbacks: {
     async jwt({ token, user }) {
-      if (user) token.user = user;
+      if (user) {
+        token.email = user.email;
+        token.role = user.role;
+        token.name = user.name;
+        token.image = user.photo;
+      }
       return token;
     },
     async session({ session, token }) {
-      session.user = token.user;
+      session.user.email = token.email;
+      session.user.role = token.role;
+      session.user.name = token.name;
+      session.user.image = token.image;
       return session;
-    }
+    },
   },
-  session: {
-    strategy: "jwt"
-  }
+  pages: {
+    signIn: "/login",
+  },
+  secret: process.env.NEXTAUTH_SECRET,
 });
 
 export { handler as GET, handler as POST };

@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { Home, ArrowLeft, Search } from 'lucide-react';
+import { Home, ArrowLeft, Search, HomeIcon, SearchAlert, ArrowLeftCircle } from 'lucide-react';
 
 const NotFoundPage = () => {
   return (
@@ -34,7 +34,7 @@ const NotFoundPage = () => {
             onClick={() => window.history.back()}
             className="flex items-center gap-2 bg-gray-900 text-white font-medium px-6 py-3 rounded-full hover:bg-gray-800 transition-colors w-full sm:w-auto"
           >
-            <ArrowLeft size={18} />
+            <ArrowLeftCircle size={18} />
             Go Back
           </button>
           
@@ -42,7 +42,7 @@ const NotFoundPage = () => {
             onClick={() => window.location.href = '/'}
             className="flex items-center gap-2 bg-white text-gray-900 font-medium px-6 py-3 rounded-full border-2 border-gray-200 hover:border-gray-300 transition-colors w-full sm:w-auto"
           >
-            <Home size={18} />
+            <HomeIcon size={18} />
             Go Home
           </button>
         </div>
@@ -50,7 +50,7 @@ const NotFoundPage = () => {
         {/* Search Suggestion */}
         <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-100 shadow-lg">
           <div className="flex items-center gap-3 text-gray-600">
-            <Search size={20} className="text-gray-400" />
+            <SearchAlert size={20} className="text-gray-400" />
             <p className="text-sm">
               Looking for something specific? Try searching from the homepage
             </p>

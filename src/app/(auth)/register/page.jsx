@@ -1,58 +1,44 @@
 "use client";
-
+import axios from "axios";
 import toast from "react-hot-toast";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-export default function RegisterPage() {
+const RegisterPage = () => {
+  const router = useRouter();
+
   const handleRegister = async (e) => {
     e.preventDefault();
-
     const form = e.target;
-    const data = {
+
+    const user = {
       name: form.name.value,
       email: form.email.value,
-      photo: form.photo.value,
       password: form.password.value,
+      photo: form.photo.value,
     };
 
-    const res = await fetch("http://localhost:5000/api/users/register", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(data),
-});
+    try {
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/users/register`,
+        user
+      );
 
-
-
-    if (!res.ok) {
-      const err = await res.json();
-      toast.error(err.message);
-    } else {
-      toast.success("Registration successful!");
-      form.reset();
+      toast.success("Registration successful");
+      router.push("/login");
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Registration failed");
     }
   };
 
   return (
-    <div className="min-h-screen bg-white items-center justify-center p-8 rounded-xl shadow flex flex-col w-96">
-      <form onSubmit={handleRegister} >
-        <h2 className="text-2xl font-bold mb-6 text-center">Register</h2>
-
-       <div className="bg-white rounded-2xl shadow-2xl p-8 border border-gray-100 space-y-6">
-        <label className="sr-only">Name</label>
-         <input name="name" placeholder="Name" className="input text-teal-500" required />
-         <label className="sr-only">email</label>
-        <input name="email" placeholder="Email" className="input mt-3 text-teal-500" required />
-        <label className="sr-only">photo</label>
-        <input name="photo" placeholder="Photo URL" className="input mt-3" /><label className="sr-only">password</label>
-        <input name="password" type="password" placeholder="Password" className="input mt-3 text-teal-500" required />
-       </div>
-
-        <button className="btn bg-teal-500 w-full mt-4 text-white">Register</button>
-
-        <p className="text-sm mt-4 text-center">
-          Already have an account? <Link href="/login" className="text-teal-500">Login</Link>
-        </p>
-      </form>
-    </div>
+    <form onSubmit={handleRegister}>
+      <input name="name" placeholder="Name" required />
+      <input name="email" type="email" required />
+      <input name="photo" placeholder="Photo URL" />
+      <input name="password" type="password" required />
+      <button type="submit">Register</button>
+    </form>
   );
-}
+};
+
+export default RegisterPage;
